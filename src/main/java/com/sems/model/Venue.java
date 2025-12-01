@@ -1,7 +1,9 @@
 package com.sems.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "venues")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Venue {
 
     @Id
@@ -32,7 +36,6 @@ public class Venue {
     private String description;
 
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Event> events = new ArrayList<>();
 
     @ManyToMany
