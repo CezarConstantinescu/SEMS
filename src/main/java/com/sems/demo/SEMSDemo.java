@@ -261,7 +261,7 @@ public class SEMSDemo {
 
         try {
             TypedQuery<User> query = em.createQuery(
-                    "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.tickets",
+                    "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.tickets t LEFT JOIN FETCH t.event",
                     User.class
             );
             List<User> users = query.getResultList();
@@ -274,13 +274,10 @@ public class SEMSDemo {
                     System.out.println("    No tickets purchased");
                 } else {
                     for (Ticket ticket : user.getTickets()) {
-                        // Need to fetch event details
-                        EntityManager em2 = EntityManagerUtil.createEntityManager();
-                        Event event = em2.find(Event.class, ticket.getEvent().getId());
+                        Event event = ticket.getEvent();
                         System.out.println("    - " + ticket.getTicketNumber() + 
                                            ": " + event.getName() + 
                                            " ($" + ticket.getPrice() + ")");
-                        em2.close();
                     }
                 }
                 System.out.println();

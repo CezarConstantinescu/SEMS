@@ -156,7 +156,9 @@ class ModelIntegrationTest {
                     "SELECT e FROM Event e",
                     Event.class
             );
-            Event event = query.getResultList().get(0);
+            List<Event> events = query.getResultList();
+            assertFalse(events.isEmpty(), "Expected at least one event to exist for ticket creation");
+            Event event = events.get(0);
 
             // Fetch user
             User user = em.find(User.class, testUser.getId());
