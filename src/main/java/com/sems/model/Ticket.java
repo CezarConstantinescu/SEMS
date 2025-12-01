@@ -1,5 +1,7 @@
 package com.sems.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "tickets")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Ticket {
 
     @Id
@@ -36,6 +39,7 @@ public class Ticket {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonBackReference(value = "event-tickets")
     private Event event;
 
     // Default constructor required by JPA

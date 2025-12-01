@@ -1,183 +1,89 @@
-# SEMS - Social Events Management System
+# SEMS — Social Events Management System
 
-A Java 21 Maven project implementing a Social Events Management System using clean OOP principles, Jakarta Persistence (JPA), Hibernate ORM, and H2 in-memory database.
+This repository is a small Java/Maven application demonstrating JPA-based domain modeling for events, venues, users and tickets. The project includes a legacy demo runner and a Spring Boot web layer with REST endpoints.
 
-## Features
+**Overview**
+- **Language & build:** Java 17, Maven.
+- **JPA:** Jakarta Persistence + Hibernate.
+- **Database:** H2 (file-backed in this workspace by default).
+- **Run modes:** Legacy demo runner (`SEMSDemo`) and Spring Boot app (`Application`).
 
-- **Clean OOP Design**: Proper inheritance hierarchy with abstract base class and concrete implementations
-- **Jakarta Persistence (JPA)**: Entity management with Hibernate ORM
-- **H2 In-Memory Database**: Fast, embedded database for development and testing
-- **JOINED Inheritance Strategy**: Normalized database design for event hierarchy
-- **Bootstrap Templates**: Responsive HTML templates for the user interface
+**Prerequisites**
+- **Java 17** installed and on `PATH`.
+- **Maven** (3.x) installed and on `PATH`.
 
-## Project Structure
+**Build**
+- **Command:** compile or package the project from the repository root:
 
-```
-src/
-├── main/
-│   ├── java/com/sems/
-│   │   ├── model/           # Domain model classes
-│   │   │   ├── User.java
-│   │   │   ├── Ticket.java
-│   │   │   ├── TicketStatus.java
-│   │   │   ├── Venue.java
-│   │   │   ├── Event.java   # Abstract base class
-│   │   │   ├── Concert.java
-│   │   │   └── Wedding.java
-│   │   ├── persistence/     # Persistence utilities
-│   │   │   └── EntityManagerUtil.java
-│   │   └── demo/            # Demo application
-│   │       └── SEMSDemo.java
-│   └── resources/
-│       ├── META-INF/
-│       │   └── persistence.xml
-│       └── templates/       # Bootstrap HTML templates
-│           ├── index.html
-│           ├── events.html
-│           ├── venues.html
-│           └── tickets.html
-└── test/
-    └── java/com/sems/
-```
-
-## Domain Model
-
-### Inheritance Hierarchy
-
-```
-Event (abstract, @Inheritance JOINED)
-├── Concert (artist, genre, tourName)
-└── Wedding (brideName, groomName, theme)
-```
-
-### Relationships
-
-- **User** has many **Tickets** (One-to-Many)
-- **Venue** has many **Events** (One-to-Many)
-- **Venue** has many **Users** (Many-to-Many - attendees)
-- **Event** has many **Tickets** (One-to-Many)
-- **Ticket** belongs to a **User** and an **Event**
-
-## Prerequisites
-
-- Java 17 or later
-- Maven 3.8+
-
-## Building the Project
-
-```bash
-# Compile the project
+```powershell
 mvn compile
-
-# Package as JAR
 mvn package
+```
 
-# Run tests
+**Seed the database (two options)**
+- Option A — Run the demo runner (quick, recommended):
+
+```powershell
+mvn exec:java -Dexec.mainClass="com.sems.demo.SEMSDemo"
+```
+
+This uses the project's JPA utilities to create sample `Venue`, `Event`, `User` and `Ticket` data. If both the demo runner and Spring Boot are pointed at the same H2 file URL, the demo's data will be visible to the web app.
+
+- Option B — Seed on Spring Boot startup: add a `CommandLineRunner` or POST endpoints (not included by default). If you want, I can add a startup data loader for you.
+
+**Start the Spring Boot web app**
+- **Command:**
+
+```powershell
+mvn spring-boot:run
+```
+
+- Watch the console for "Started Application" and Tomcat on port `8080`.
+
+**REST API (read-only endpoints shipped by default)**
+- `GET /api/events` — list events
+- `GET /api/users` — list users
+- `GET /api/venues` — list venues
+- `GET /api/tickets` — list tickets
+
+Example PowerShell query:
+
+```powershell
+Invoke-RestMethod -Uri http://localhost:8080/api/events -Method Get
+```
+
+If you see an empty array, either the database has no rows, or `SEMSDemo` was not run against the same H2 file.
+
+**H2 Console**
+- If enabled in `application.properties`, access the H2 web console at `http://localhost:8080/h2-console` to inspect tables and run SQL queries. Verify the JDBC URL and credentials from `application.properties` or `persistence.xml`.
+
+**Run tests**
+- **Command:**
+
+```powershell
 mvn test
 ```
 
-## Running the Demo
+Tests include unit and integration tests (the project contains a REST integration test using `TestRestTemplate`).
 
-```bash
-# Using Maven exec plugin
-mvn exec:java -Dexec.mainClass="com.sems.demo.SEMSDemo"
+**Important files & locations**
+- Main Spring Boot class: `src/main/java/com/sems/Application.java`
+- Demo runner: `src/main/java/com/sems/demo/SEMSDemo.java`
+- Entities: `src/main/java/com/sems/model` (Event, Ticket, User, Venue, Concert, Wedding)
+- Persistence util: `src/main/java/com/sems/persistence/EntityManagerUtil.java`
+- Controllers (REST): `src/main/java/com/sems/controller`
+- Persistence config: `src/main/resources/META-INF/persistence.xml` and `src/main/resources/application.properties`
+- Templates (static samples): `src/main/resources/templates`
 
-# Or run the packaged JAR
-java -cp target/social-events-management-system-1.0-SNAPSHOT.jar com.sems.demo.SEMSDemo
-```
+**Gotchas & notes for developers**
+- DB sharing: The project still contains `persistence.xml` and also Spring Boot `application.properties`. Ensure both point to the same H2 JDBC URL if you want `SEMSDemo` data visible to the Spring Boot app.
+- Transactions: repository methods currently manage transactions; consider converting to Spring Data `JpaRepository` + `@Transactional` service methods for idiomatic Spring behavior.
+- Controllers are read-only by default. To create/update data over HTTP, add POST/PUT endpoints or a startup `CommandLineRunner` that seeds sample data.
+- JSON serialization: entities include Jackson annotations to reduce lazy-loading/cycle issues when returning entities from controllers.
 
-## Example Usage
+**Next steps you might want me to do**
+- Add a `CommandLineRunner` to seed sample data on Spring Boot startup.
+- Add REST POST endpoints for creating `Event` / `User` / `Venue` / `Ticket` resources.
+- Migrate repositories to Spring Data `JpaRepository` and use `@Transactional` on service layers.
 
-### Creating and Persisting Events
-
-```java
-EntityManager em = EntityManagerUtil.createEntityManager();
-EntityTransaction tx = em.getTransaction();
-
-try {
-    tx.begin();
-    
-    // Create a venue
-    Venue venue = new Venue("Grand Concert Hall", "123 Music Ave", 5000);
-    em.persist(venue);
-    
-    // Create a concert
-    Concert concert = new Concert(
-        "Rock Night 2024",
-        LocalDateTime.of(2024, 6, 15, 20, 0),
-        LocalDateTime.of(2024, 6, 15, 23, 30),
-        venue,
-        "The Rolling Stones",
-        "Rock"
-    );
-    em.persist(concert);
-    
-    // Create a wedding
-    Wedding wedding = new Wedding(
-        "Johnson-Smith Wedding",
-        LocalDateTime.of(2024, 8, 10, 14, 0),
-        LocalDateTime.of(2024, 8, 10, 23, 0),
-        venue,
-        "Emily Johnson",
-        "Michael Smith"
-    );
-    em.persist(wedding);
-    
-    tx.commit();
-} finally {
-    em.close();
-}
-```
-
-### Querying Events
-
-```java
-EntityManager em = EntityManagerUtil.createEntityManager();
-
-// Query all events
-TypedQuery<Event> query = em.createQuery(
-    "SELECT e FROM Event e JOIN FETCH e.venue ORDER BY e.startDateTime",
-    Event.class
-);
-List<Event> events = query.getResultList();
-
-// Query specific event types
-TypedQuery<Concert> concertQuery = em.createQuery(
-    "SELECT c FROM Concert c WHERE c.genre = :genre",
-    Concert.class
-);
-concertQuery.setParameter("genre", "Rock");
-List<Concert> rockConcerts = concertQuery.getResultList();
-
-em.close();
-```
-
-## Technologies Used
-
-- **Java 17**: Modern Java LTS version
-- **Maven**: Build and dependency management
-- **Jakarta Persistence API 3.1**: Standard JPA specification
-- **Hibernate ORM 6.4**: JPA implementation
-- **H2 Database 2.2**: In-memory SQL database
-- **Bootstrap 5.3**: CSS framework for templates
-- **JUnit 5**: Testing framework
-
-## Configuration
-
-The `persistence.xml` file configures the JPA persistence unit:
-
-```xml
-<persistence-unit name="SEMS-PU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <properties>
-        <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-        <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:semsdb"/>
-        <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-        <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-    </properties>
-</persistence-unit>
-```
-
-## License
-
-This project is for educational purposes.
+If you'd like, tell me which of the next steps to take and I will implement it and show live requests against the running app.

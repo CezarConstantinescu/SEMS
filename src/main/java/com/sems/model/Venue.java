@@ -1,5 +1,7 @@
 package com.sems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "venues")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Venue {
 
     @Id
@@ -29,6 +32,7 @@ public class Venue {
     private String description;
 
     @OneToMany(mappedBy = "venue", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Event> events = new ArrayList<>();
 
     @ManyToMany

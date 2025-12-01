@@ -16,11 +16,16 @@
         <class>com.sems.model.Wedding</class>
         
         <properties>
-            <!-- H2 Database Configuration -->
-            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:semsdb;DB_CLOSE_DELAY=-1"/>
-            <property name="jakarta.persistence.jdbc.user" value="sa"/>
-            <property name="jakarta.persistence.jdbc.password" value=""/>
+              <!-- H2 Database Configuration (file-backed) -->
+              <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+              <!--
+                  Using a file-backed H2 database stores data on disk under the repo working directory.
+                  Files will be created under `./data` (relative to the process working directory).
+                  `AUTO_SERVER=TRUE` allows multiple processes to open the same DB (useful during development).
+              -->
+              <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:file:./data/semsdb;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE"/>
+              <property name="jakarta.persistence.jdbc.user" value="sa"/>
+              <property name="jakarta.persistence.jdbc.password" value=""/>
             
             <!-- Hibernate Configuration -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>

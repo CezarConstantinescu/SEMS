@@ -1,5 +1,7 @@
 package com.sems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "events")
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public abstract class Event {
 
     @Id
@@ -35,6 +38,7 @@ public abstract class Event {
     private Venue venue;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference(value = "event-tickets")
     private List<Ticket> tickets = new ArrayList<>();
 
     // Default constructor required by JPA

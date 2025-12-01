@@ -1,5 +1,6 @@
 package com.sems.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "weddings")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Wedding extends Event {
 
     @Column(nullable = false)

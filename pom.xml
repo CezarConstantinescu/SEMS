@@ -20,6 +20,7 @@
         <h2.version>2.2.224</h2.version>
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <junit.version>5.10.1</junit.version>
+        <spring.boot.version>3.2.2</spring.boot.version>
     </properties>
 
     <dependencies>
@@ -42,6 +43,23 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+        </dependency>
+
+        <!-- Spring Boot starters -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
         </dependency>
 
         <!-- Bootstrap (WebJars) -->
@@ -83,6 +101,11 @@
                 <configuration>
                     <mainClass>com.sems.demo.SEMSDemo</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
             </plugin>
         </plugins>
     </build>
