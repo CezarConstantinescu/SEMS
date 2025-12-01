@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venues - SEMS</title>
+    <!-- Bootstrap CSS from WebJars -->
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <style>
+        .venue-card {
+            transition: transform 0.2s;
+        }
+        .venue-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <strong>SEMS</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tickets.html">My Tickets</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light ms-2" href="#">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-4">
+        <div class="container">
+            <h1>Our Venues</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                    <li class="breadcrumb-item active text-white-50" aria-current="page">Venues</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Venue 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card venue-card h-100 shadow">
+                    <div class="card-body">
+                        <h4 class="card-title">Grand Concert Hall</h4>
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt"></i> 123 Music Avenue, New York, NY
+                        </p>
+                        <hr>
+                        <p class="card-text">A premier concert venue with state-of-the-art acoustics. Perfect for concerts, orchestral performances, and large-scale musical events.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <span class="badge bg-primary">Capacity</span>
+                                <strong class="ms-1">5,000</strong>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">Events</span>
+                                <strong class="ms-1">2</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="#" class="btn btn-outline-primary w-100">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venue 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card venue-card h-100 shadow">
+                    <div class="card-body">
+                        <h4 class="card-title">Rose Garden Estate</h4>
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt"></i> 456 Garden Lane, Los Angeles, CA
+                        </p>
+                        <hr>
+                        <p class="card-text">Elegant outdoor venue perfect for romantic weddings and intimate gatherings. Beautiful gardens and scenic views.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <span class="badge bg-primary">Capacity</span>
+                                <strong class="ms-1">300</strong>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">Events</span>
+                                <strong class="ms-1">2</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="#" class="btn btn-outline-primary w-100">View Events</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Venue 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card venue-card h-100 shadow">
+                    <div class="card-body">
+                        <h4 class="card-title">City Arena</h4>
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt"></i> 789 Sports Blvd, Chicago, IL
+                        </p>
+                        <hr>
+                        <p class="card-text">Large multi-purpose arena for major events. Ideal for concerts, sporting events, and large conventions.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <span class="badge bg-primary">Capacity</span>
+                                <strong class="ms-1">20,000</strong>
+                            </div>
+                            <div>
+                                <span class="badge bg-success">Events</span>
+                                <strong class="ms-1">1</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <a href="#" class="btn btn-outline-primary w-100">View Events</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Venue Section -->
+        <div class="card mt-5">
+            <div class="card-body text-center py-5">
+                <h4>Want to list your venue?</h4>
+                <p class="text-muted">Partner with us to host amazing events at your location</p>
+                <a href="#" class="btn btn-primary btn-lg">Register Your Venue</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Social Events Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS from WebJars -->
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
