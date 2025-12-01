@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tickets - SEMS</title>
+    <!-- Bootstrap CSS from WebJars -->
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <style>
+        .ticket-card {
+            border-left: 5px solid;
+            transition: transform 0.2s;
+        }
+        .ticket-card:hover {
+            transform: translateX(5px);
+        }
+        .ticket-active {
+            border-left-color: #28a745;
+        }
+        .ticket-used {
+            border-left-color: #6c757d;
+        }
+        .ticket-cancelled {
+            border-left-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <strong>SEMS</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="tickets.html">My Tickets</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            John Doe
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-4">
+        <div class="container">
+            <h1>My Tickets</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                    <li class="breadcrumb-item active text-white-50" aria-current="page">My Tickets</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- User Info -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h4 class="mb-1">John Doe</h4>
+                        <p class="text-muted mb-0">john.doe@email.com</p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <span class="badge bg-primary fs-6">3 Active Tickets</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tickets Filter Tabs -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">All Tickets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Used</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Cancelled</a>
+            </li>
+        </ul>
+
+        <!-- Tickets List -->
+        <div class="row">
+            <!-- Ticket 1 -->
+            <div class="col-12 mb-3">
+                <div class="card ticket-card ticket-active shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center mb-3 mb-md-0">
+                                <span class="badge bg-primary fs-6 p-2">CONCERT</span>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="mb-1">Rock Night 2024</h5>
+                                <p class="text-muted mb-0">The Rolling Stones</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">Date & Time</small>
+                                <p class="mb-0"><strong>June 15, 2024 - 8:00 PM</strong></p>
+                                <small class="text-muted">Grand Concert Hall</small>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <small class="text-muted">Ticket #</small>
+                                <p class="mb-0"><strong>TKT-001</strong></p>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="col-md-1 text-end">
+                                <button class="btn btn-outline-primary btn-sm">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 2 -->
+            <div class="col-12 mb-3">
+                <div class="card ticket-card ticket-active shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center mb-3 mb-md-0">
+                                <span class="badge bg-danger fs-6 p-2">CONCERT</span>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="mb-1">Pop Sensation Tour</h5>
+                                <p class="text-muted mb-0">Taylor Swift - Eras Tour</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">Date & Time</small>
+                                <p class="mb-0"><strong>July 20, 2024 - 7:00 PM</strong></p>
+                                <small class="text-muted">City Arena</small>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <small class="text-muted">Ticket #</small>
+                                <p class="mb-0"><strong>TKT-002</strong></p>
+                                <span class="badge bg-success">Active</span>
+                            </div>
+                            <div class="col-md-1 text-end">
+                                <button class="btn btn-outline-primary btn-sm">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ticket 3 (Example Used Ticket) -->
+            <div class="col-12 mb-3">
+                <div class="card ticket-card ticket-used shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 text-center mb-3 mb-md-0">
+                                <span class="badge bg-secondary fs-6 p-2">CONCERT</span>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="mb-1">Jazz Night 2023</h5>
+                                <p class="text-muted mb-0">Jazz Ensemble</p>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="text-muted">Date & Time</small>
+                                <p class="mb-0"><strong>Dec 10, 2023 - 7:30 PM</strong></p>
+                                <small class="text-muted">Grand Concert Hall</small>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <small class="text-muted">Ticket #</small>
+                                <p class="mb-0"><strong>TKT-099</strong></p>
+                                <span class="badge bg-secondary">Used</span>
+                            </div>
+                            <div class="col-md-1 text-end">
+                                <button class="btn btn-outline-secondary btn-sm">View</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purchase Summary -->
+        <div class="card mt-4">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">Purchase Summary</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Rock Night 2024</td>
+                            <td class="text-end">$150.00</td>
+                        </tr>
+                        <tr>
+                            <td>Pop Sensation Tour</td>
+                            <td class="text-end">$200.00</td>
+                        </tr>
+                        <tr class="border-top">
+                            <td><strong>Total Spent</strong></td>
+                            <td class="text-end"><strong>$350.00</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Social Events Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS from WebJars -->
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

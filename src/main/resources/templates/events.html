@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - SEMS</title>
+    <!-- Bootstrap CSS from WebJars -->
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+    <style>
+        .event-card {
+            transition: transform 0.2s;
+        }
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <strong>SEMS</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="venues.html">Venues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tickets.html">My Tickets</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-light ms-2" href="#">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="bg-primary text-white py-4">
+        <div class="container">
+            <h1>Browse Events</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                    <li class="breadcrumb-item active text-white-50" aria-current="page">Events</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-md-3">
+                <div class="filter-section mb-4">
+                    <h5>Filter Events</h5>
+                    <hr>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Event Type</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="typeConcert" checked>
+                            <label class="form-check-label" for="typeConcert">Concerts</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="typeWedding" checked>
+                            <label class="form-check-label" for="typeWedding">Weddings</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Date Range</label>
+                        <input type="date" class="form-control mb-2" placeholder="From">
+                        <input type="date" class="form-control" placeholder="To">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Price Range</label>
+                        <input type="range" class="form-range" min="0" max="500" id="priceRange">
+                        <div class="d-flex justify-content-between">
+                            <span>$0</span>
+                            <span>$500+</span>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </div>
+
+            <!-- Events List -->
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="mb-0 text-muted">Showing 4 events</p>
+                    <select class="form-select w-auto">
+                        <option>Sort by Date</option>
+                        <option>Sort by Price</option>
+                        <option>Sort by Name</option>
+                    </select>
+                </div>
+
+                <!-- Event Cards -->
+                <div class="row">
+                    <!-- Concert 1 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card event-card h-100 shadow-sm">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between">
+                                <span class="badge bg-light text-primary">Concert</span>
+                                <span>June 15, 2024</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Rock Night 2024</h5>
+                                <p class="card-text"><strong>Artist:</strong> The Rolling Stones</p>
+                                <p class="card-text"><strong>Genre:</strong> Rock</p>
+                                <p class="card-text"><strong>Venue:</strong> Grand Concert Hall</p>
+                                <p class="card-text"><strong>Time:</strong> 8:00 PM - 11:30 PM</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">$150</span>
+                                    <a href="#" class="btn btn-primary">Get Tickets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Concert 2 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card event-card h-100 shadow-sm">
+                            <div class="card-header bg-danger text-white d-flex justify-content-between">
+                                <span class="badge bg-light text-danger">Concert</span>
+                                <span>July 20, 2024</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Pop Sensation Tour</h5>
+                                <p class="card-text"><strong>Artist:</strong> Taylor Swift</p>
+                                <p class="card-text"><strong>Genre:</strong> Pop</p>
+                                <p class="card-text"><strong>Venue:</strong> City Arena</p>
+                                <p class="card-text"><strong>Time:</strong> 7:00 PM - 10:00 PM</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-danger mb-0">$200</span>
+                                    <a href="#" class="btn btn-danger">Get Tickets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wedding 1 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card event-card h-100 shadow-sm">
+                            <div class="card-header bg-success text-white d-flex justify-content-between">
+                                <span class="badge bg-light text-success">Wedding</span>
+                                <span>August 10, 2024</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Johnson-Smith Wedding</h5>
+                                <p class="card-text"><strong>Couple:</strong> Emily & Michael</p>
+                                <p class="card-text"><strong>Theme:</strong> Rustic Garden</p>
+                                <p class="card-text"><strong>Venue:</strong> Rose Garden Estate</p>
+                                <p class="card-text"><strong>Time:</strong> 2:00 PM - 11:00 PM</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">Private Event</span>
+                                    <a href="#" class="btn btn-success">RSVP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wedding 2 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card event-card h-100 shadow-sm">
+                            <div class="card-header bg-info text-white d-flex justify-content-between">
+                                <span class="badge bg-light text-info">Wedding</span>
+                                <span>December 21, 2024</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Brown-Davis Wedding</h5>
+                                <p class="card-text"><strong>Couple:</strong> Sarah & James</p>
+                                <p class="card-text"><strong>Theme:</strong> Winter Wonderland</p>
+                                <p class="card-text"><strong>Venue:</strong> Rose Garden Estate</p>
+                                <p class="card-text"><strong>Time:</strong> 3:00 PM - 10:00 PM</p>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">Private Event</span>
+                                    <a href="#" class="btn btn-info">RSVP</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Social Events Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS from WebJars -->
+    <script src="/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
