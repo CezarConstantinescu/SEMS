@@ -21,6 +21,7 @@
         <jakarta.persistence.version>3.1.0</jakarta.persistence.version>
         <junit.version>5.10.1</junit.version>
         <spring.boot.version>3.2.2</spring.boot.version>
+        <vaadin.version>24.2.0</vaadin.version>
     </properties>
 
     <dependencies>
@@ -75,6 +76,20 @@
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Vaadin for frontend -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+            <version>${vaadin.version}</version>
+        </dependency>
+
+        <!-- REST client (OkHttp or RestTemplate) -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.11.0</version>
         </dependency>
     </dependencies>
 

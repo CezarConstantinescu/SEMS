@@ -28,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> findAll() {
         EntityManager em = EntityManagerUtil.createEntityManager();
         try {
-            TypedQuery<User> q = em.createQuery("SELECT u FROM User u", User.class);
+            TypedQuery<User> q = em.createQuery("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.tickets t LEFT JOIN FETCH t.event", User.class);
             return q.getResultList();
         } finally {
             em.close();

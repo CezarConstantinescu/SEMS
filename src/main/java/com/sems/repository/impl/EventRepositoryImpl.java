@@ -44,7 +44,7 @@ public class EventRepositoryImpl implements EventRepository {
     public List<Event> findAll() {
         EntityManager em = EntityManagerUtil.createEntityManager();
         try {
-            TypedQuery<Event> q = em.createQuery("SELECT e FROM Event e ORDER BY e.startDateTime", Event.class);
+            TypedQuery<Event> q = em.createQuery("SELECT e FROM Event e JOIN FETCH e.venue ORDER BY e.startDateTime", Event.class);
             return q.getResultList();
         } finally {
             em.close();

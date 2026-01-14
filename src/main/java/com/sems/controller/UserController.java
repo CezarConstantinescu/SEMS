@@ -1,5 +1,6 @@
 package com.sems.controller;
 
+import com.sems.dto.UserResponseDTO;
 import com.sems.model.User;
 import com.sems.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -22,12 +24,26 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> list() {
-        return userRepository.findAll();
+    public List<UserResponseDTO> list() {
+        return userRepository.findAll().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public User get(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public UserResponseDTO get(@PathVariable Long id) {
+        User user = userRepository.findById(id);
+        return user != null ? toDTO(user) : null;
+    }
+
+    /**
+     * Convert User entity to UserResponseDTO to avoid lazy initialization.
+     */
+    private UserResponseDTO toDTO(User user) {
+        return new UserResponseDTO(
+                user.getId(),
+                user.getName(),
+                user.getEmail()
+        );
     }
 }

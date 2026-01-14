@@ -28,7 +28,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     public List<Ticket> findAll() {
         EntityManager em = EntityManagerUtil.createEntityManager();
         try {
-            TypedQuery<Ticket> q = em.createQuery("SELECT t FROM Ticket t", Ticket.class);
+            TypedQuery<Ticket> q = em.createQuery("SELECT t FROM Ticket t JOIN FETCH t.event JOIN FETCH t.user", Ticket.class);
             return q.getResultList();
         } finally {
             em.close();
