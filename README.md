@@ -60,9 +60,18 @@ Watch the console for "Started Application" and Tomcat on port `8080`.
 
 **Run tests**
 ```powershell
+# Unit and integration tests
 mvn test
+
+# Selenium functional tests (requires Spring Boot running on http://localhost:8080)
+mvn test -Dtest=SeleniumUITest
+
+# Run specific functional test
+mvn test -Dtest=SeleniumUITest#testApplicationLoads
 ```
-Tests include entity model integration tests.
+Tests include:
+- Entity model integration tests (JUnit 5)
+- Selenium UI functional tests for Vaadin frontend (navigation, data loading, search/filter)
 
 **Important files & locations**
 - Main Spring Boot class: `src/main/java/com/sems/Application.java`
@@ -87,7 +96,9 @@ Tests include entity model integration tests.
 - H2 2.2.224 (Database)
 - OkHttp 4.11.0 (REST client)
 - Jackson (JSON serialization)
-- JUnit 5 (Testing)
+- Selenium 4.15.0 (Functional testing)
+- WebDriverManager 5.6.3 (Browser driver management)
+- JUnit 5 (Unit/Integration testing)
 
 **Notes**
 - Controllers return DTOs instead of entities to avoid lazy initialization issues during JSON serialization

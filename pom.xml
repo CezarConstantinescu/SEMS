@@ -78,6 +78,22 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Selenium for functional testing -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.15.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WebDriverManager for automatic driver management -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>5.6.3</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Vaadin for frontend -->
         <dependency>
             <groupId>com.vaadin</groupId>
