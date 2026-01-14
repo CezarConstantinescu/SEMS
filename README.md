@@ -1,59 +1,97 @@
 # SEMS — Social Events Management System
 
-This repository is a small Java/Maven application demonstrating JPA-based domain modeling for events, venues, users and tickets. The project includes a legacy demo runner and a Spring Boot web layer with REST endpoints.
+This repository is a full-stack Java application demonstrating JPA-based domain modeling with a Spring Boot REST API backend and Vaadin frontend for managing events, venues, users, and tickets.
 
 **Overview**
 - **Language & build:** Java 17, Maven.
-- **JPA:** Jakarta Persistence + Hibernate.
-- **Database:** H2 (file-backed in this workspace by default).
-- **Run modes:** Legacy demo runner (`SEMSDemo`) and Spring Boot app (`Application`).
+- **Backend:** Spring Boot 3.2.2 with REST API controllers.
+- **Frontend:** Vaadin 24.2.0 with responsive UI components.
+- **JPA:** Jakarta Persistence + Hibernate 6.4.1.
+- **Database:** H2 (file-backed at `./data/semsdb`).
+- **Architecture:** RESTful service layer with DTOs, frontend REST consumers, Vaadin views with data binding.
 
 **Prerequisites**
 - **Java 17** installed and on `PATH`.
 - **Maven** (3.x) installed and on `PATH`.
 
-**Build**
-- **Command:** compile or package the project from the repository root:
+**Quick Start**
 
+1. **Build the project:**
 ```powershell
-mvn compile
-mvn package
+mvn clean compile
 ```
 
-**Seed the database**
-
+2. **Seed the database with sample data:**
 ```powershell
-mvn exec:java
+mvn exec:java "-Dexec.mainClass=com.sems.demo.SEMSDemo"
 ```
+This creates sample `Venue`, `Concert`, `Wedding`, `User`, and `Ticket` data.
 
-This uses the project's JPA utilities to create sample `Venue`, `Event`, `User` and `Ticket` data. If both the demo runner and Spring Boot are pointed at the same H2 file URL, the demo's data will be visible to the web app.
-
+3. **Start the Spring Boot application:**
 ```powershell
 mvn spring-boot:run
 ```
+Watch the console for "Started Application" and Tomcat on port `8080`.
 
-- Watch the console for "Started Application" and Tomcat on port `8080`.
+4. **Access the application:**
+- **Frontend UI:** http://localhost:8080
+- **REST API:** http://localhost:8080/api/events, /api/venues, /api/users, /api/tickets
+- **H2 Console:** http://localhost:8080/h2-console (JDBC URL: `jdbc:h2:file:./data/semsdb`, user: `sa`, password: blank)
+
+**Architecture**
+
+**Backend (REST API)**
+- **Controllers:** `src/main/java/com/sems/controller` - REST endpoints returning DTOs
+- **Response DTOs:** `src/main/java/com/sems/dto` - Data transfer objects to avoid lazy initialization issues
+- **Repositories:** `src/main/java/com/sems/repository` - Manual EntityManager-based data access
+- **Entities:** `src/main/java/com/sems/model` - JPA entities with inheritance (Event → Concert/Wedding)
+
+**Frontend (Vaadin)**
+- **Views:** `src/main/java/com/sems/frontend/view` - Vaadin UI components (EventsView, VenuesView, UsersView, TicketsView)
+- **REST Consumers:** `src/main/java/com/sems/frontend/service` - OkHttp-based services calling backend API
+- **Frontend DTOs:** `src/main/java/com/sems/frontend/dto` - Client-side data models matching backend DTOs
+- **Layout:** `MainLayout` with navigation sidebar for all views
+
+**Key Features**
+- DTO-based serialization to prevent lazy initialization exceptions
+- Grid components with search/filter capabilities
+- Responsive navigation between Events, Venues, Users, and Tickets
+- Clean separation between backend REST API and frontend consumers
 
 **Run tests**
-- **Command:**
-
 ```powershell
 mvn test
 ```
-
-Tests include unit and integration tests (the project contains a REST integration test using `TestRestTemplate`).
+Tests include entity model integration tests.
 
 **Important files & locations**
 - Main Spring Boot class: `src/main/java/com/sems/Application.java`
-- Demo runner: `src/main/java/com/sems/demo/SEMSDemo.java`
-- Entities: `src/main/java/com/sems/model` (Event, Ticket, User, Venue, Concert, Wedding)
-- Persistence util: `src/main/java/com/sems/persistence/EntityManagerUtil.java`
-- Controllers (REST): `src/main/java/com/sems/controller`
-- Persistence config: `src/main/resources/META-INF/persistence.xml` and `src/main/resources/application.properties`
-- Templates (static samples): `src/main/resources/templates`
+- Demo data seeder: `src/main/java/com/sems/demo/SEMSDemo.java`
+- Entity model: `src/main/java/com/sems/model` (Event, Concert, Wedding, Ticket, User, Venue)
+- REST controllers: `src/main/java/com/sems/controller` (EventController, VenueController, UserController, TicketController)
+- Backend DTOs: `src/main/java/com/sems/dto`
+- Frontend views: `src/main/java/com/sems/frontend/view`
+- Frontend services: `src/main/java/com/sems/frontend/service`
+- Persistence config: `src/main/resources/META-INF/persistence.xml` (for demo seeder) and `src/main/resources/application.properties` (for Spring Boot)
+
+**Database Configuration**
+- The H2 database is file-backed at `./data/semsdb.mv.db`
+- Schema auto-updates via `hibernate.hbm2ddl.auto=update`
+- Both the demo seeder and Spring Boot share the same database file
+- To reset the database, delete `./data/semsdb.mv.db` and re-run the seeder
+
+**Technology Stack**
+- Spring Boot 3.2.2 (Web, Data JPA, Actuator)
+- Vaadin 24.2.0 (UI framework)
+- Hibernate 6.4.1.Final (ORM)
+- H2 2.2.224 (Database)
+- OkHttp 4.11.0 (REST client)
+- Jackson (JSON serialization)
+- JUnit 5 (Testing)
 
 **Notes**
-- DB sharing: The project still contains `persistence.xml` and also Spring Boot `application.properties`. Ensure both point to the same H2 JDBC URL if you want `SEMSDemo` data visible to the Spring Boot app.
-- Transactions: repository methods currently manage transactions; consider converting to Spring Data `JpaRepository` + `@Transactional` service methods for idiomatic Spring behavior.
-- Controllers are read-only by default. To create/update data over HTTP, add POST/PUT endpoints or a startup `CommandLineRunner` that seeds sample data.
-- JSON serialization: entities include Jackson annotations to reduce lazy-loading/cycle issues when returning entities from controllers.
+- Controllers return DTOs instead of entities to avoid lazy initialization issues during JSON serialization
+- Frontend uses OkHttpClient to consume REST API endpoints
+- Vaadin views use `Grid` components with `ListDataProvider` for data binding and filtering
+- Event inheritance uses `JOINED` strategy with separate tables for Concert and Wedding
+- The legacy `persistence.xml` is retained for the demo seeder; Spring Boot uses `application.properties`
